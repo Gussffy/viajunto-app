@@ -1,0 +1,15 @@
+{
+  "name": "viajunto",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/backend",
+    "apps/mobile",
+    "packages/shared-types"
+  ],
+  "scripts": {
+    "test": "npm run test --workspace apps/backend",
+    "lint": "npm run lint --workspace apps/backend",
+    "build": "npm run build --workspace packages/shared-types && npm run build --workspace apps/backend"
+  }
+}

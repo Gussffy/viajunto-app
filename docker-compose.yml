@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_DB: viajunto
+      POSTGRES_USER: viajunto
+      POSTGRES_PASSWORD: viajunto
+    ports:
+      - "5432:5432"
+    volumes:
+      - viajunto-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  viajunto-postgres-data:

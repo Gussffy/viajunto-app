@@ -11,5 +11,8 @@
     "test": "npm run test --workspace apps/backend",
     "lint": "npm run lint --workspace apps/backend",
     "build": "npm run build --workspace packages/shared-types && npm run build --workspace apps/backend"
+  },
+  "devDependencies": {
+    "semver": "^7.7.2"
   }
 }

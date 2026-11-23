@@ -1,0 +1,41 @@
+﻿{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Mobile: Expo Start",
+      "type": "shell",
+      "command": "npm run start --workspace apps/mobile",
+      "options": { "cwd": "${workspaceFolder}" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "Mobile: Expo Android",
+      "type": "shell",
+      "command": "npm run android --workspace apps/mobile",
+      "options": { "cwd": "${workspaceFolder}" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "Mobile: Expo Web",
+      "type": "shell",
+      "command": "npm run web --workspace apps/mobile",
+      "options": { "cwd": "${workspaceFolder}" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "Mobile: Typecheck",
+      "type": "shell",
+      "command": "npm run typecheck --workspace apps/mobile",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": "$tsc",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    }
+  ]
+}

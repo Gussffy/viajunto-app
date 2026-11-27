@@ -1,13 +1,14 @@
-import { createProductionApp, port } from './app.js';
+import { createProductionApp } from './bootstrap.js';
+import { env } from './config/env.js';
 
-const { app, prisma } = createProductionApp();
-const server = app.listen(port, () => {
-  console.log(`Backend running at http://localhost:${port}`);
+const { app, disconnect } = createProductionApp();
+const server = app.listen(env.PORT, () => {
+  console.log(`Backend running at http://localhost:${env.PORT}`);
 });
 
 const shutdown = async () => {
   server.close();
-  await prisma.$disconnect();
+  await disconnect();
 };
 
 process.once('SIGINT', () => void shutdown());

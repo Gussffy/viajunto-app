@@ -1,7 +1,7 @@
 import type { RequestHandler } from 'express';
 
 import { UnauthorizedError } from '../errors/app-error.js';
-import { AuthService } from '../services/auth-service.js';
+import type { AuthService } from '../services/auth-service.js';
 
 export function createUserController(authService: AuthService) {
   const getMe: RequestHandler = async (req, res) => {

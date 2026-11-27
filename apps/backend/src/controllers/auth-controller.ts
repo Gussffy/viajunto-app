@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
 
-import { AuthService } from '../services/auth-service.js';
+import type { AuthService } from '../services/auth-service.js';
 
 export function createAuthController(authService: AuthService) {
   const register: RequestHandler = async (req, res) => {

@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import { asyncHandler } from '../middleware/async-handler.js';
 import { createAuthController } from '../controllers/auth-controller.js';
-import { AuthService } from '../services/auth-service.js';
+import type { AuthService } from '../services/auth-service.js';
 
 export function createAuthRoutes(authService: AuthService): Router {
   const controller = createAuthController(authService);

@@ -1,0 +1,16 @@
+export const colors = {
+  blue: '#1757DD',
+  primary: '#1757DD',
+  navy: '#10244C',
+  pale: '#E8F0FF',
+  text: '#162642',
+  muted: '#566785',
+  line: '#DBE4F2',
+  input: '#F1F5FC',
+  canvas: '#F5F8FE',
+  white: '#FFFFFF',
+  danger: '#B42330',
+  errorBackground: '#FFF0F1',
+  success: '#166447',
+  successBackground: '#E8F6EE',
+};

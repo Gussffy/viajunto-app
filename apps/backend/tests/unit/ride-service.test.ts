@@ -132,12 +132,13 @@ describe('RideService', () => {
     const service = new RideService(repository);
 
     await expect(service.createTrip('u1', {
+      destinoLat: 0, destinoLng: 0, manualApproval: false, notes: "", origemLat: 0, origemLng: 0,
       origem: 'Vitória da Conquista',
       destino: 'Brumado',
       departureAt: '2099-12-01T08:00:00.000Z',
       assentos: 3,
       ajudaCusto: 25,
-      apenasMulheres: false,
+      apenasMulheres: false
     })).rejects.toMatchObject({ code: 'DRIVER_REQUIRED' });
   });
   it('rejects vehicle registration for passengers', async () => {
@@ -161,12 +162,13 @@ describe('RideService', () => {
     const service = new RideService(repository);
 
     await expect(service.createTrip('u1', {
+      destinoLat: 0, destinoLng: 0, manualApproval: false, notes: "", origemLat: 0, origemLng: 0,
       origem: 'Vitória da Conquista',
       destino: 'Brumado',
       departureAt: '2099-12-01T08:00:00.000Z',
       assentos: 3,
       ajudaCusto: 25,
-      apenasMulheres: true,
+      apenasMulheres: true
     })).rejects.toMatchObject({ code: 'WOMEN_ONLY_DRIVER_REQUIRED' });
   });
 
@@ -179,12 +181,13 @@ describe('RideService', () => {
     });
 
     await expect(new RideService(repository).createTrip(driver.id, {
+      destinoLat: 0, destinoLng: 0, manualApproval: false, notes: "", origemLat: 0, origemLng: 0,
       origem: trip.origem,
       destino: trip.destino,
       departureAt: trip.departureAt.toISOString(),
       assentos: trip.assentos,
       ajudaCusto: trip.ajudaCusto,
-      apenasMulheres: true,
+      apenasMulheres: true
     })).resolves.toEqual(exclusiveTrip);
     expect(repository.createTrip).toHaveBeenCalledWith(expect.objectContaining({
       driverId: driver.id, apenasMulheres: true,
@@ -278,12 +281,13 @@ describe('RideService', () => {
     const service = new RideService(repository);
 
     await expect(service.createTrip('u1', {
+      destinoLat: 0, destinoLng: 0, manualApproval: false, notes: "", origemLat: 0, origemLng: 0,
       origem: 'Vitória da Conquista',
       destino: 'Brumado',
       departureAt: '2099-12-01T08:00:00.000Z',
       assentos: 3,
       ajudaCusto: 25,
-      apenasMulheres: false,
+      apenasMulheres: false
     }))    .rejects.toMatchObject({ code: 'VEHICLE_REQUIRED' });
   });
 

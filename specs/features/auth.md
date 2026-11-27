@@ -190,6 +190,14 @@ O modelo `RefreshToken` contém `id`, `tokenHash`, `userId` (FK para `User`),
 A migration inicial deve habilitar a extensão PostGIS, sem criar tabelas
 geográficas.
 
+## Formulários no aplicativo
+
+- As instruções nos campos indicam o que digitar.
+- No login e no cadastro, o campo em foco deve ficar acessível com o teclado
+  aberto, e o restante do formulário deve continuar rolável.
+- A senha começa oculta. O botão do campo alterna entre mostrar e ocultar
+  o conteúdo digitado.
+
 ## Critérios de aceite
 
 - Cadastro válido retorna `201` sem senha ou `passwordHash`.
@@ -209,6 +217,6 @@ geográficas.
 
 ## Fora de escopo
 
-- Telas ou fluxos do aplicativo mobile.
+- Fluxos do aplicativo além dos formulários de login e cadastro.
 - Deploy.
 - Viagens, reservas, reviews, chat e busca geoespacial.

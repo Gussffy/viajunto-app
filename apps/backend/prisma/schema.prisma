@@ -18,6 +18,32 @@ enum UserRole {
   passageiro
 }
 
+enum TripStatus {
+  open
+  full
+  in_progress
+  finished
+  cancelled
+}
+
+enum RideRequestStatus {
+  pending
+  accepted
+  refused
+  cancelled
+}
+
+enum NotificationType {
+  new_request
+  request_accepted
+  request_refused
+  request_cancelled
+  trip_cancelled
+  trip_started
+  trip_finished
+  new_rating
+}
+
 model User {
   id           String         @id @default(cuid())
   nome         String
@@ -28,6 +54,12 @@ model User {
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   refreshTokens RefreshToken[]
+  vehicle       Vehicle?
+  trips         Trip[]
+  rideRequests  RideRequest[] @relation("PassengerRequests")
+  notifications Notification[]
+  ratingsGiven  Rating[]      @relation("RatingAuthor")
+  ratingsReceived Rating[]    @relation("RatingSubject")
 }
 
 model RefreshToken {
@@ -40,4 +72,90 @@ model RefreshToken {
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+model Vehicle {
+  id        String   @id @default(cuid())
+  placa     String   @unique
+  modelo    String
+  cor       String
+  lugares   Int
+  driverId  String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  driver    User     @relation(fields: [driverId], references: [id], onDelete: Cascade)
+}
+
+model Trip {
+  id             String   @id @default(cuid())
+  origem         String
+  origemLat      Float?
+  origemLng      Float?
+  destino        String
+  destinoLat     Float?
+  destinoLng     Float?
+  departureAt    DateTime
+  assentos       Int
+  seatsTotal     Int
+  seatsAvailable Int
+  ajudaCusto     Float
+  apenasMulheres Boolean  @default(false)
+  manualApproval Boolean  @default(true)
+  notes          String?
+  status         TripStatus @default(open)
+  driverId       String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  driver         User     @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  requests       RideRequest[]
+  notifications  Notification[]
+  ratings        Rating[]
+
+  @@index([departureAt])
+  @@index([driverId])
+}
+
+model RideRequest {
+  id          String            @id @default(cuid())
+  tripId      String
+  passengerId String
+  seats       Int               @default(1)
+  status      RideRequestStatus @default(pending)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  trip        Trip              @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  passenger   User              @relation("PassengerRequests", fields: [passengerId], references: [id], onDelete: Cascade)
+
+  @@unique([tripId, passengerId])
+  @@index([tripId, status])
+  @@index([passengerId, status])
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  tripId    String
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trip      Trip             @relation(fields: [tripId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read, createdAt])
+}
+
+model Rating {
+  id        String   @id @default(cuid())
+  tripId    String
+  authorId  String
+  subjectId String
+  stars     Int
+  comment   String?
+  createdAt DateTime @default(now())
+  trip      Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  author    User     @relation("RatingAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+  subject   User     @relation("RatingSubject", fields: [subjectId], references: [id], onDelete: Cascade)
+
+  @@unique([tripId, authorId, subjectId])
+  @@index([subjectId])
 }

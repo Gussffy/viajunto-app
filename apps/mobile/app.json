@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "ViaJunto",
+    "slug": "viajunto",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#1677FF"
+      }
+    },
+    "plugins": [
+      "expo-status-bar",
+      "@react-native-community/datetimepicker"
+    ]
+  }
+}

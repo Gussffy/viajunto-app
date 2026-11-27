@@ -11,5 +11,9 @@
     "test": "npm run test --workspace apps/backend",
     "lint": "npm run lint --workspace apps/backend",
     "build": "npm run build --workspace packages/shared-types && npm run build --workspace apps/backend"
+  },
+  "dependencies": {
+    "react-dom": "19.3.0",
+    "react-native-web": "^0.21.0"
   }
 }

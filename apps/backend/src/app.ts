@@ -1,29 +1,26 @@
 import express from 'express';
-import { PrismaClient } from '@prisma/client';
 
-import { env } from './config/env.js';
+import { cors } from './middleware/cors.js';
 import { errorHandler } from './middleware/error-handler.js';
-import { PrismaAuthRepository } from './repositories/prisma-auth-repository.js';
-import { AuthService } from './services/auth-service.js';
 import { createAuthRoutes } from './routes/auth-routes.js';
+import { createRideRoutes } from './routes/ride-routes.js';
 import { createUserRoutes } from './routes/user-routes.js';
+import type { AuthService } from './services/auth-service.js';
+import type { RideService } from './services/ride-service.js';
 
-export function createApp(authService: AuthService) {
+export function createApp(authService: AuthService, rideService?: RideService) {
   const app = express();
   app.use(express.json());
+  app.use(cors);
+
   app.get('/health', (_req, res) => {
     res.json({ status: 'ok' });
   });
+
   app.use('/auth', createAuthRoutes(authService));
   app.use('/users', createUserRoutes(authService));
+  if (rideService) app.use('/', createRideRoutes(rideService));
   app.use(errorHandler);
+
   return app;
 }
-
-export function createProductionApp() {
-  const prisma = new PrismaClient();
-  const repository = new PrismaAuthRepository(prisma);
-  return { app: createApp(new AuthService(repository)), prisma };
-}
-
-export const port = env.PORT;
